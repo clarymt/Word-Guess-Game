@@ -8,7 +8,7 @@ var guesses = 10;
 var guessed = ''
 
 //Array of hike-related words randomization
-var options = [
+var words = [
     "trekking poles",
     "trailtown",
     "zero",
@@ -28,44 +28,37 @@ var options = [
     "moose",
 ];
 
-//To generate random arrangement of words
-var word = options[Math.floor(Math.random() * options.length)];
 
-//Array to store guesses
-var answerArray = [];
-
-//answer fill
-function onStart () {
-
+var word = words[Math.floor(Math.random() * words.length)];
+    // Set up the answer array
+    var answerArray = [];
     for (var i = 0; i < word.length; i++) {
     answerArray[i] = "_";
-}
-
-    s=answerArray.join("  ")
-    document.getElementById("answer").outerHTML = s;
-
-var lettersLeft = word.length;
-}
-
-function Guess () {
-    var letter=document.getElementById("letter").value;
-
-    if (letter.length >0)
-    {
-            for (var i=0; i < word.length; i++)
-             {
-                 if (word[i] === letter)
-                {
-                 answerArray[i] = letter;
-                }
-            count++;
-            document.getElementById("guesses").innerHTML = "Number of Guesses Remaining: " = count;
-            document.getElementById("answer").outerHTML = answerArray.join("");
-             }
-
-
     }
-    if (count>
+    var remainingLetters = word.length;
+    // The game loop
+    while (remainingLetters > 0) {
+    // Show the player their progress
+     alert(answerArray.join(" "));
+    // Get a guess from the player
+    var guess = prompt("Guess a letter, or click Cancel to stop playing.");
 
-}
-
+    if (guess === null) {
+    // Exit the game loop
+    break;
+    } else if (guess.length !== 1) {
+    alert("Please enter a single letter.");
+    } else {
+    // Update the game state with the guess
+    for (var j = 0; j < word.length; j++) {
+    if (word[j] === guess) {
+    answerArray[j] = guess;
+    remainingLetters--;
+    }
+    }
+    }
+    // The end of the game loop
+ }
+ // Show the answer and congratulate the player
+ alert(answerArray.join(" "));
+ alert("Good job! The answer was " + word);
